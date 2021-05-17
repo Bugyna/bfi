@@ -1,8 +1,4 @@
 import sys
-import string
-
-# alpha = [*string.ascii_uppercase, *string.ascii_lowercase, *string.digits, *string.punctuation]
-# alpha = string.printable
 
 def main(argc: int, argv: []) -> int:
 	cells: [] = [0];
@@ -20,11 +16,11 @@ def main(argc: int, argv: []) -> int:
 	elif (argc >= 2):
 		program = open(argv[1], "r").read();
 		if (argc >= 3):
-			input = argv[2]
+			input = argv[2];
 
 	i = 0;
 	while (i < len(program)):
-		char = program[i]
+		char = program[i];
 		
 		if (char == ">"):
 			cell_index += 1;
@@ -37,12 +33,12 @@ def main(argc: int, argv: []) -> int:
 				cell_index = len(cells)-1;
 				
 		elif (char == "+"):
-			cells[cell_index] += 1
+			cells[cell_index] += 1;
 			if (cells[cell_index] >= 256):
 				cells[cell_index] = 0;
 				
 		elif (char == "-"):
-			cells[cell_index] -= 1
+			cells[cell_index] -= 1;
 			if (cells[cell_index] < 0):
 				cells[cell_index] = 255;
 				
@@ -55,7 +51,7 @@ def main(argc: int, argv: []) -> int:
 				ret = 1;
 				break;
 			elif (not input[input_index:input_index+1]):
-				print("\nERROR: insufficient input given")
+				print("\nERROR: insufficient input given");
 				ret = 1;
 				break;
 				
@@ -79,7 +75,7 @@ def main(argc: int, argv: []) -> int:
 	print(f"\n[{ret}]");
 	return ret;
 
-argv: [] = sys.argv
+argv: [] = sys.argv;
 main(len(argv), argv);
 
 
