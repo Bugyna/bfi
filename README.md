@@ -7,3 +7,5 @@ at least the hello world test works:)
 
 USAGE:
 python3 main.py [FILENAME] [INPUT: OPTIONAL]
+for the C version just compile it and run bfi [FILENAME] [INPUT: OPTIONAL]
+e.g. bfi test.bf TEST
