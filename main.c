@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 	input_index = 0;
 	ret = 0;
 	if (argc == 1) {
-		printf("ERROR: no program provided");
+		printf("bfi: usage: bfi [FILENAME] [INPUT: OPTIONAL]");
 		return 1;
 	}
 	else if (argc >= 2) {
