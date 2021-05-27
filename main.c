@@ -1,16 +1,21 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <malloc.h>
+// #include <malloc.h>
 #include <string.h>
 
 #define byte unsigned char
-#define ulong unsigned long
+#define ulong unsigned int
+
+typedef enum 
+{
+	NO_ERROR, NO_INPUT, INSUFFICIENT_INPUT
+} ERRORS;
 
 char* program;
 ulong program_len;
 byte* cells;
 ulong cell_len;
-ulong index;
 ulong loop_index;
 ulong loop_count;
 ulong* loop_ref;
@@ -27,7 +32,10 @@ char* read_file(const char* filename, ulong* len)
 	*len = ftell(file)+1;
 	fseek(file, 0, SEEK_SET);
 	char* buff = (char*)malloc(*len);
-	fgets(buff, (int)len, file);
+	char c;
+	for (int i = 0; (c = fgetc(file)) != EOF; i++) {
+		buff[i] = c;
+	}
 	fclose(file);
 	return buff;
 }
@@ -37,7 +45,7 @@ int main(int argc, char** argv)
 	program_len = 0;
 	cells = malloc(sizeof(byte));
 	cell_len = 1;
-	index = 0;
+	ulong index = 0;
 	loop_index = 0;
 	loop_count = 0;
 	loop_ref = malloc(sizeof(ulong));
@@ -45,7 +53,7 @@ int main(int argc, char** argv)
 	input = "";
 	input_len = 0;
 	input_index = 0;
-	ret = 0;
+	ret = NO_ERROR;
 
 	if (argc == 1) {
 		printf("bfi: usage: bfi [FILENAME] [INPUT: OPTIONAL]");
@@ -107,12 +115,12 @@ int main(int argc, char** argv)
 		case ',':
 			if (argc <= 2) {
 				printf("\nERROR: trying to read from input, but no input was given");
-				ret = 1;
+				ret = NO_INPUT;
 				run = false;
 			}
 			else if (input_index >= input_len) {
 				printf("\nERROR: insufficient input given");
-				ret = 1;
+				ret = INSUFFICIENT_INPUT;
 				run = false;
 			}
 
